@@ -8,6 +8,9 @@ import { crypto } from "@std/crypto/crypto";
 import { encodeHex } from "jsr:@std/encoding/hex";
 import type { PrintRequest } from "./types.ts";
 
+// import { getPython } from "jsr:@orgsoft/py";
+// const { python } = await getPython();
+
 // now `_` is imported in the global variable, which in deno is `self`
 // deno-lint-ignore no-explicit-any
 const _ = (self as any)._; // Workaround to get lodash in Deno
@@ -64,8 +67,8 @@ app.post("/api/print", async (req, res) => {
 
   console.log("Received print request:", printRequest);
 
-  const command = new Deno.Command('python3', {
-    args: [`test.py`, `${JSON.stringify(printRequest)}`],
+  const command = new Deno.Command('/home/tater/.local/bin/uv', {
+    args: [`run`, 'print.py', `${JSON.stringify(printRequest)}`],
   });
   const { code, stdout, stderr } = await command.output();
   console.log(new TextDecoder().decode(stdout));
