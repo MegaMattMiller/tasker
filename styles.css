@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Apple Color Emoji', 'Noto Color Emoji', Arial, sans-serif;
+  background-color: white;
+  width: 576px;
+  padding: 0;
+  margin: 0;
+}
+
+.ticket-container {
+  background: white;
+  padding: 10px 5px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.ticket-label {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.priority-dots {
+  font-size: 48px;
+  font-weight: bold;
+  margin-top: 4px;
+  color: #000;
+  font-family: 'Segoe UI Emoji', 'Segoe UI Symbol', 'Apple Color Emoji', 'Noto Color Emoji', 'Segoe UI', Arial, sans-serif;
+}
+
+.perforation {
+  background: repeating-linear-gradient(to right,
+      #000 0,
+      #000 6px,
+      transparent 6px,
+      transparent 12px);
+  height: 3px;
+  margin: 5px 0;
+}
+
+.task-title {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.task-title h1 {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #000;
+  word-wrap: break-word;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.task-description {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.task-description h1 {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #000;
+  word-wrap: break-word;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.task-assigned {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.task-assigned h1 {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #000;
+  word-wrap: break-word;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.task-url {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.task-url h1 {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #000;
+  word-wrap: break-word;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.dashed-line {
+  border-top: 3px dashed #666;
+  margin: 5px 0;
+}
+
+.due-date {
+  text-align: left;
+}
+
+.due-date-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  max-width: 95%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.bottom-perforation {
+  margin-top: 6px;
+}
+
+.label {
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #000;
+  word-wrap: break-word;
+  max-width: 95%;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  margin: 0 auto;
+}
