@@ -43,7 +43,7 @@ async function authenticateTokenInRequest(req: express.Request) {
 function reject(res: express.Response, reason: string = "Invalid API Key") {
   res.status(403).send({
     status: "failure",
-    d: { error: reason },
+    d: { 'success': false, 'exit_code': 1, 'error': reason }
   });
   return;
 }
@@ -80,7 +80,7 @@ app.post("/api/print", async (req, res) => {
     return;
   }
 
-  res.status(200).send({ status: "success", d: { 'success': true, 'exit_code': code } });
+  res.status(200).send({ status: "success", d: { 'success': true, 'exit_code': code, 'error': 'none' } });
 });
 
 app.listen(port, () => {
