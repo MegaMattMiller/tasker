@@ -67,6 +67,17 @@ def create_task_html(inputs):
 
 <body>
   <div class="ticket-container">
+    <!-- Task Title -->
+    <div class="label">Title:</div>
+    <div class="task-title">
+      <p>{taskName}</p>
+    </div>
+
+    <!-- Dashed Separator -->
+    <br />
+    <div class="dashed-line"></div>
+    <br />
+
     <!-- Assigned -->
     <div class="label">Assigned to:</div>
     <div class="task-assigned">
@@ -87,14 +98,6 @@ def create_task_html(inputs):
     <!-- Dashed Separator -->
     <br />
     <div class="dashed-line"></div>
-    <br />
-
-    <!-- Task Title -->
-    <div class="label">Title:</div>
-    <div class="task-title">
-      <p>{taskName}</p>
-    </div>
-
     <br />
 
     <!-- Task Description -->
