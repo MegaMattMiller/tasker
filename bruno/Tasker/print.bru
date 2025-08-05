@@ -1,0 +1,36 @@
+meta {
+  name: print
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://tasker.tater.blue/api/print
+  body: json
+  auth: inherit
+}
+
+headers {
+  x-api-key: NOT-TELLING
+}
+
+body:json {
+  {
+    "assignedTo": "John Doe",
+    "taskName": "Do a thing",
+    "taskDesc": "This is a thing that needs to be done.",
+    "createdAt": "2025-08-01T12:18:35.940Z"
+  }
+}
+
+body:form-urlencoded {
+  taskName: test
+}
+
+body:multipart-form {
+  taskName: test task
+}
+
+settings {
+  encodeUrl: true
+}

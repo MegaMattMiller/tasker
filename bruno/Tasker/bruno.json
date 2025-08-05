@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Tasker",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
