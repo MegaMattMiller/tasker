@@ -9,6 +9,9 @@ from dateutil import tz
 import qrcode
 import sys,json
 import imgkit
+import PIL.Image
+import base64
+from io import BytesIO
 
 from_zone = tz.tzutc()
 to_zone = tz.tzlocal()
@@ -32,6 +35,21 @@ def create_task_html(inputs):
     date = central.date().strftime("%m-%d-%Y")
     time = central.time().strftime("%I:%M %p")
 
+    qr = qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_L,
+    box_size=10,
+    border=4,
+    )
+    qr.add_data(taskUrl)
+    qr.make(fit=True)
+
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    buffered = BytesIO()
+    img.save(buffered, format="JPEG")
+    img_str = base64.b64encode(buffered.getvalue()).decode()
+
     with open('styles.css', 'r') as f:
         styles = f.read()
         f.close()
@@ -52,7 +70,7 @@ def create_task_html(inputs):
     <!-- Assigned -->
     <div class="label">Assigned to:</div>
     <div class="task-assigned">
-      <h1>{assignedTo}</h1>
+      <p>{assignedTo}</p>
     </div>
 
     <!-- Dashed Separator -->
@@ -74,7 +92,7 @@ def create_task_html(inputs):
     <!-- Task Title -->
     <div class="label">Title:</div>
     <div class="task-title">
-      <h1>{taskName}</h1>
+      <p>{taskName}</p>
     </div>
 
     <br />
@@ -82,7 +100,7 @@ def create_task_html(inputs):
     <!-- Task Description -->
     <div class="label">Description:</div>
     <div class="task-description">
-      <h1>{taskDesc}</h1>
+      <p>{taskDesc}</p>
     </div>
 
     <!-- Dashed Separator -->
@@ -92,13 +110,21 @@ def create_task_html(inputs):
 
     <!-- Task URL -->
     <div class="task-url">
-      <h1>{taskUrl}</h1>
+      <p>{taskUrl}</p>
     </div>
 
+    <img class="qr" src="data:image/jpeg;base64,{img_str}" />
+
     <!-- Dashed Separator -->
-    <!-- <br /> -->
-    <!-- <div class="dashed-line"></div> -->
-    <!-- <br /> -->
+    <br />
+    <div class="dashed-line"></div>
+    <br />
+
+    <!-- Task Description -->
+    <div class="fact">Fun fact:</div>
+    <div class="fact">
+      <p>{fact}</p>
+    </div>
 
     <!-- Bottom Perforation -->
     <!-- <div class="perforation bottom-perforation"></div> -->
@@ -219,16 +245,9 @@ def printTaskImage(path, inputs):
     date = central.date().strftime("%m-%d-%Y")
     time = central.time().strftime("%I:%M %p")
     
-
     p = printer.Usb(0x0fe6, 0x811e)
     p.image(path, impl='bitImageRaster', center=True)
-    p.qr(taskUrl, ec=3, size=10, model=2, native=False)
     # p.image('out.png', impl='bitImageRaster', center=False)
-    p.ln(1)
-    p.set(align="left", font="a", underline=2)
-    p.textln('Fun fact:')
-    p.set(align="left", font="a", underline=0)
-    p.textln(f'{fact}')
     p.ln(2)
     p.cut()
 

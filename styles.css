@@ -53,9 +53,9 @@ body {
   padding: 10px 0;
 }
 
-.task-title h1 {
+.task-title p {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: normal;
   line-height: 1.2;
   color: #000;
   word-wrap: break-word;
@@ -71,9 +71,9 @@ body {
   padding: 10px 0;
 }
 
-.task-description h1 {
+.task-description p {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: normal;
   line-height: 1.2;
   color: #000;
   word-wrap: break-word;
@@ -89,9 +89,9 @@ body {
   padding: 10px 0;
 }
 
-.task-assigned h1 {
+.task-assigned p {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: normal;
   line-height: 1.2;
   color: #000;
   word-wrap: break-word;
@@ -107,9 +107,9 @@ body {
   padding: 10px 0;
 }
 
-.task-url h1 {
+.task-url p {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: normal;
   line-height: 1.2;
   color: #000;
   word-wrap: break-word;
@@ -131,7 +131,7 @@ body {
 
 .due-date-text {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: normal;
   color: #000;
   max-width: 95%;
   margin: 0 auto;
@@ -145,6 +145,25 @@ body {
 .label {
   font-size: 30px;
   font-weight: bold;
+  line-height: 1.2;
+  color: #000;
+  word-wrap: break-word;
+  max-width: 95%;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  margin: 0 auto;
+}
+
+.qr {
+  margin: 0 auto;
+  width: 80%;
+  height: auto;
+  margin-left: 10%;
+}
+
+.fact {
+  font-size: 12px;
+  font-weight: normal;
   line-height: 1.2;
   color: #000;
   word-wrap: break-word;
