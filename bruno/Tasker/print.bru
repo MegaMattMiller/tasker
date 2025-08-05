@@ -5,13 +5,13 @@ meta {
 }
 
 post {
-  url: https://tasker.tater.blue/api/print
+  url: {{host}}/api/print
   body: json
   auth: inherit
 }
 
 headers {
-  x-api-key: NOT-TELLING
+  x-api-key: {{api_key}}
 }
 
 body:json {
@@ -20,6 +20,7 @@ body:json {
     "taskName": "Do a thing",
     "taskDesc": "This is a thing that needs to be done.",
     "createdAt": "2025-08-01T12:18:35.940Z"
+    "url": "https://www.google.com"
   }
 }
 

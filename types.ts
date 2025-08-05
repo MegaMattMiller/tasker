@@ -3,4 +3,5 @@ interface PrintRequest {
   taskName: string;
   taskDesc: string;
   createdAt: Date;
+  url: string;
 }

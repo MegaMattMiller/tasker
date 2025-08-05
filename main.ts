@@ -71,18 +71,16 @@ app.post("/api/print", async (req, res) => {
     args: [`run`, 'print.py', `${JSON.stringify(printRequest)}`],
   });
   const { code, stdout, stderr } = await command.output();
-  console.log(new TextDecoder().decode(stdout));
 
-  if (stderr.length > 0) {
-    console.error("Error executing command:", new TextDecoder().decode(stderr));
+  if (code != 0) {
     res.status(500).send({
       status: "failure",
-      d: { error: "Failed to execute print command" },
+      d: { error: { 'success': false, 'exit_code': code, 'error': new TextDecoder().decode(stderr) } },
     });
     return;
   }
 
-  res.status(200).send({ status: "success", d: { 'success': true } });
+  res.status(200).send({ status: "success", d: { 'success': true, 'exit_code': code } });
 });
 
 app.listen(port, () => {
