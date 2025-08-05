@@ -79,9 +79,9 @@ def create_task_html(inputs):
     <br />
 
     <!-- Due Date Section -->
-    <div class="due-date">
-      <div class="label">Created:</div>
-      <div class="due-date-text">{date} at {time}</div>
+    <div class="label">Created:</div>
+    <div class="due-date-text">
+      <p>{date} at {time}</p>
     </div>
 
     <!-- Dashed Separator -->
