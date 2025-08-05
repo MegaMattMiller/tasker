@@ -1,0 +1,15 @@
+meta {
+  name: Get Useless Fact
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://uselessfacts.jsph.pl/api/v2/facts/random
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

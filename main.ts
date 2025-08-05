@@ -6,7 +6,7 @@ import cors from "npm:cors@2.8.5";
 import "https://deno.land/x/lodash@4.17.19/dist/lodash.js";
 import { crypto } from "@std/crypto/crypto";
 import { encodeHex } from "jsr:@std/encoding/hex";
-import type { PrintRequest } from "./types.ts";
+import type { PrintRequest, UselessFact } from "./types.ts";
 
 // import { getPython } from "jsr:@orgsoft/py";
 // const { python } = await getPython();
@@ -40,6 +40,12 @@ async function authenticateTokenInRequest(req: express.Request) {
   }
 }
 
+async function getFact() {
+  const response = await fetch('https://uselessfacts.jsph.pl/api/v2/facts/random');
+  const data: UselessFact = await response.json();
+  return data;
+}
+
 function reject(res: express.Response, reason: string = "Invalid API Key") {
   res.status(403).send({
     status: "failure",
@@ -64,6 +70,8 @@ app.post("/api/print", async (req, res) => {
   }
 
   const printRequest: PrintRequest = req.body;
+  const fact = await getFact();
+  printRequest.fact = fact.text;
 
   console.log("Received print request:", printRequest);
 

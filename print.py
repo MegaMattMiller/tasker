@@ -17,7 +17,7 @@ options = {
     'width': 256,
 }
 
-def printTask(taskName, taskDesc, createdAt, assignedTo, taskUrl):
+def printTask(taskName, taskDesc, createdAt, assignedTo, taskUrl, fact):
 
     utc = datetime.strptime(createdAt, "%Y-%m-%dT%H:%M:%S.%fZ")
     utc = utc.replace(tzinfo=from_zone)
@@ -48,9 +48,11 @@ def printTask(taskName, taskDesc, createdAt, assignedTo, taskUrl):
     p.text('\n')
     p.text(f'{taskUrl}\n')
     p.qr(taskUrl, ec=3, size=10, model=2, native=False)
-    p.text('\n')
-    p.text('\n')
     # p.image('out.png', impl='bitImageRaster', center=False)
+    p.text('\n')
+    p.text('Fun fact:\n')
+    p.text(f'{fact}')
+    p.text('\n')
     p.text('\n')
     p.cut()
 
@@ -58,4 +60,4 @@ def printTask(taskName, taskDesc, createdAt, assignedTo, taskUrl):
 
 if __name__ == "__main__":
     inputs = json.loads(sys.argv[1])
-    printTask(inputs['taskName'], inputs['taskDesc'], inputs['createdAt'], inputs['assignedTo'], inputs['url'])
+    printTask(inputs['taskName'], inputs['taskDesc'], inputs['createdAt'], inputs['assignedTo'], inputs['url'], inputs['fact'])
