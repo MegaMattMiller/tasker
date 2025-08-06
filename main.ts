@@ -8,9 +8,6 @@ import { crypto } from "@std/crypto/crypto";
 import { encodeHex } from "jsr:@std/encoding/hex";
 import type { PrintRequest, UselessFact } from "./types.ts";
 
-// import { getPython } from "jsr:@orgsoft/py";
-// const { python } = await getPython();
-
 // now `_` is imported in the global variable, which in deno is `self`
 // deno-lint-ignore no-explicit-any
 const _ = (self as any)._; // Workaround to get lodash in Deno
@@ -81,11 +78,20 @@ app.post("/api/print", async (req, res) => {
   const { code, stdout, stderr } = await command.output();
 
   if (code != 0) {
-    res.status(500).send({
-      status: "failure",
-      d: { error: { 'success': false, 'exit_code': code, 'error': new TextDecoder().decode(stderr) } },
+    // Wait for 5 seconds before retrying
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    const retryCommand = new Deno.Command('/home/tater/.local/bin/uv', {
+      args: [`run`, 'print.py', `${JSON.stringify(printRequest)}`],
     });
-    return;
+    const { code: retryCode, stdout: retryStdout, stderr: retryStderr } = await retryCommand.output();
+
+    if (retryCode != 0) {
+      res.status(500).send({
+        status: "failure",
+        d: { error: { 'success': false, 'exit_code': retryCode, 'error': new TextDecoder().decode(retryStderr) } },
+      });
+      return;
+    }
   }
 
   res.status(200).send({ status: "success", d: { 'success': true, 'exit_code': code, 'error': 'none' } });
