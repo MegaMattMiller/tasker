@@ -13,6 +13,7 @@ import imgkit
 import PIL.Image
 import base64
 from io import BytesIO
+from identicons import *
 
 from_zone = tz.tzutc()
 to_zone = tz.tzlocal()
@@ -52,6 +53,13 @@ def create_task_html(inputs):
     img.save(buffered, format="JPEG")
     img_str = base64.b64encode(buffered.getvalue()).decode()
 
+    icon = generate(inputs['url'], primary=0x000000, secondary=0xFFFFFF)
+    save(icon, 'icon.png', 500, 500)
+    with open('icon.png', 'rb') as icon_file:
+        icon_data = icon_file.read()
+        icon_str = base64.b64encode(icon_data).decode()
+        icon_file.close()
+
     with open('styles.css', 'r') as f:
         styles = f.read()
         f.close()
@@ -69,6 +77,8 @@ def create_task_html(inputs):
 
 <body>
   <div class="ticket-container">
+  <img class="icon" src="data:image/jpeg;base64,{icon_str}" />
+  </br>
     <!-- Task Title -->
     <div class="label">Title:</div>
     <div class="task-title">
@@ -245,4 +255,4 @@ def printTaskImage(path):
 if __name__ == "__main__":
     inputs = json.loads(sys.argv[1])
     create_task_html_image(inputs)
-    printTaskImage('out.png')
+    # printTaskImage('out.png')

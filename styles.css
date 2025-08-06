@@ -10,6 +10,7 @@ body {
   width: 576px;
   padding: 0;
   margin: 0;
+  position: relative;
 }
 
 .ticket-container {
@@ -169,6 +170,16 @@ body {
   width: 80%;
   height: auto;
   margin-left: 10%;
+}
+
+.icon {
+  position: relative;
+  margin: 0 auto;
+  width: 20%;
+  height: auto;
+  margin-left: 40%;
+  margin-bottom: 50px;
+  margin-top: 20px;
 }
 
 .fact {
