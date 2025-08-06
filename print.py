@@ -1,13 +1,14 @@
 # Bus 003 Device 003: ID 0fe6:811e ICS Advent Parallel Adapter
 # lsusb -vvv -d 0fe6:811e | grep iInterface
-# iInterface              0 
+# iInterface              0
 # lsusb -vvv -d 0fe6:811e | grep bEndpointAddress | grep OUT
 # bEndpointAddress     0x01  EP 1 OUT
 from datetime import datetime
 from escpos import *
 from dateutil import tz
 import qrcode
-import sys,json
+import sys
+import json
 import imgkit
 import PIL.Image
 import base64
@@ -20,7 +21,8 @@ options = {
     'width': 256,
 }
 
-def create_task_html(inputs):    
+
+def create_task_html(inputs):
 
     createdAt = inputs['createdAt']
     assignedTo = inputs['assignedTo']
@@ -36,10 +38,10 @@ def create_task_html(inputs):
     time = central.time().strftime("%I:%M %p")
 
     qr = qrcode.QRCode(
-    version=1,
-    error_correction=qrcode.constants.ERROR_CORRECT_L,
-    box_size=10,
-    border=4,
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
     )
     qr.add_data(taskUrl)
     qr.make(fit=True)
@@ -136,8 +138,9 @@ def create_task_html(inputs):
 
 </html>
     """
-    
+
     return html_content
+
 
 def create_task_html_image(inputs):
     print("Creating task HTML...")
@@ -149,13 +152,14 @@ def create_task_html_image(inputs):
 
     # Try imgkit first (faster), then Selenium
     image_path = html_to_image_imgkit(html_content)
-    
+
     return image_path
 
+
 def html_to_image_imgkit(html_content):
-    
+
     try:
-        
+
         # Configure options for thermal printer size
         options = {
             'width': 576,  # 72mm thermal printer width
@@ -164,7 +168,7 @@ def html_to_image_imgkit(html_content):
             'disable-local-file-access': '',
             'crop-w': 576,  # Crop to exact width
         }
-        
+
         # Try to configure wkhtmltopdf path for Windows
         config = None
         import os
@@ -172,21 +176,22 @@ def html_to_image_imgkit(html_content):
             r'/usr/bin/wkhtmltoimage',
             r'/usr/bin/',
         ]
-        
+
         for path in possible_paths:
             if os.path.exists(path):
                 config = imgkit.config(wkhtmltoimage=path)
                 break
 
-        
         # Convert HTML to image
-        imgkit.from_string(html_content, 'out.png', options=options, config=config)
-        
+        imgkit.from_string(html_content, 'out.png',
+                           options=options, config=config)
+
         return 'out.png'
-        
+
     except Exception as e:
         print(f"Error converting HTML to image with imgkit: {str(e)}")
         return None
+
 
 def printTask(inputs):
     createdAt = inputs['createdAt']
@@ -228,12 +233,14 @@ def printTask(inputs):
 
     print(taskUrl)
 
-def printTaskImage(path):    
+
+def printTaskImage(path):
     p = printer.Usb(0x0fe6, 0x811e)
     p.ln(1)
     p.image(path, impl='bitImageRaster', center=True)
     p.ln(8)
     p.cut()
+
 
 if __name__ == "__main__":
     inputs = json.loads(sys.argv[1])
