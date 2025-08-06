@@ -255,4 +255,4 @@ def printTaskImage(path):
 if __name__ == "__main__":
     inputs = json.loads(sys.argv[1])
     create_task_html_image(inputs)
-    # printTaskImage('out.png')
+    printTaskImage('out.png')
