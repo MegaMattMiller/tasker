@@ -202,11 +202,6 @@ def printTask(inputs):
     date = central.date().strftime("%m-%d-%Y")
     time = central.time().strftime("%I:%M %p")
 
-    # img = qrcode.make(taskUrl)
-    # img.save("my_qrcode.png")
-
-    # imgkit.from_url('https://google.com', 'out.png', options=options)
-
     p = printer.Usb(0x0fe6, 0x811e)
     p.textln('Assigned to:')
     p.textln(f'{assignedTo}')
@@ -225,7 +220,6 @@ def printTask(inputs):
     p.ln(1)
     p.textln(f'{taskUrl}')
     p.qr(taskUrl, ec=3, size=10, model=2, native=False)
-    # p.image('out.png', impl='bitImageRaster', center=False)
     p.ln(1)
     p.textln('Fun fact:')
     p.textln(f'{fact}')
@@ -234,28 +228,14 @@ def printTask(inputs):
 
     print(taskUrl)
 
-def printTaskImage(path, inputs):
-    createdAt = inputs['createdAt']
-    assignedTo = inputs['assignedTo']
-    taskName = inputs['taskName']
-    taskDesc = inputs['taskDesc']
-    taskUrl = inputs['url']
-    fact = inputs['fact']
-
-    utc = datetime.strptime(createdAt, "%Y-%m-%dT%H:%M:%S.%fZ")
-    utc = utc.replace(tzinfo=from_zone)
-    central = utc.astimezone(to_zone)
-    date = central.date().strftime("%m-%d-%Y")
-    time = central.time().strftime("%I:%M %p")
-    
+def printTaskImage(path):    
     p = printer.Usb(0x0fe6, 0x811e)
+    p.ln(1)
     p.image(path, impl='bitImageRaster', center=True)
-    # p.image('out.png', impl='bitImageRaster', center=False)
-    p.ln(2)
+    p.ln(8)
     p.cut()
 
 if __name__ == "__main__":
     inputs = json.loads(sys.argv[1])
-    # printTask(inputs)
     create_task_html_image(inputs)
-    printTaskImage('out.png', inputs)
+    printTaskImage('out.png')
